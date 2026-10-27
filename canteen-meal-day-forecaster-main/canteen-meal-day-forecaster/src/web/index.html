@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6f7f3">
+  <title>Canteenly | Meal Day Forecaster</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="Canteenly dashboard">
+        <span class="brand-mark">c<span>.</span></span>
+        <span class="brand-copy"><strong>canteenly</strong><small>MEAL FORECASTER</small></span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="navigation" aria-label="Main navigation">
+        <button class="nav-link active" data-page="dashboard"><span class="nav-icon">◫</span>Dashboard</button>
+        <button class="nav-link" data-page="menu"><span class="nav-icon">▦</span>Menu management</button>
+        <button class="nav-link" data-page="sales"><span class="nav-icon">↗</span>Daily sales</button>
+        <button class="nav-link" data-page="events"><span class="nav-icon">▣</span>Event planner</button>
+        <button class="nav-link" data-page="forecast"><span class="nav-icon">⌁</span>Demand forecast</button>
+        <button class="nav-link" data-page="reports"><span class="nav-icon">▤</span>Evaluation & reports</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-icon">✳</div><strong>Better prep, less waste.</strong><p>Use your sales history to plan tomorrow's kitchen.</p><button data-go="forecast">Make a forecast <span>↗</span></button></div>
+        <div class="profile"><div class="avatar">C</div><div><strong>Campus Canteen</strong><small>Administrator</small></div><span class="profile-dots">•••</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation">☰</button>
+        <div class="breadcrumbs">Workspace <span>/</span> <strong id="breadcrumb">Dashboard</strong></div>
+        <div class="top-actions"><span class="live-status"><i></i> All changes saved</span><div class="top-avatar">C</div></div>
+      </header>
+
+      <div class="page-wrap">
+        <section class="page active" id="page-dashboard">
+          <div class="page-heading dashboard-heading">
+            <div><div class="eyebrow" id="todayLabel">MONDAY, OCTOBER 26</div><h1>Good morning<span class="heading-dot">.</span></h1><p>Here's what's happening in your canteen today.</p></div>
+            <button class="button button-primary" data-go="forecast"><span>＋</span> Create forecast</button>
+          </div>
+          <div class="welcome-strip"><div class="welcome-symbol">✳</div><div><strong>Your kitchen, one step ahead.</strong><p>Plan the right amount of food with a clear view of your daily demand.</p></div><button data-go="sales">Log today's sales <span>→</span></button></div>
+          <div class="stat-grid">
+            <article class="stat-card"><div class="stat-top"><span>MEALS SERVED TODAY</span><span class="stat-icon mint">↗</span></div><div class="stat-value" id="todayMeals">0</div><div class="stat-foot"><span class="positive">● Live total</span><span>across all items</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span>FORECAST FOR TODAY</span><span class="stat-icon lavender">⌁</span></div><div class="stat-value" id="todayForecast">—</div><div class="stat-foot"><span id="forecastStatus" class="positive">Ready to plan</span><span>meals estimated</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span>MENU ITEMS</span><span class="stat-icon peach">▦</span></div><div class="stat-value" id="menuCount">0</div><div class="stat-foot"><span class="positive">● Active menu</span><span>available today</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span>UPCOMING EVENTS</span><span class="stat-icon blue">▣</span></div><div class="stat-value" id="eventCount">0</div><div class="stat-foot"><span id="nextEventFoot">On the calendar</span><span>coming up</span></div></article>
+          </div>
+          <div class="dashboard-grid">
+            <article class="panel sales-chart-panel">
+              <div class="panel-heading"><div><h2>Sales overview</h2><p>Meals served across the last 7 days</p></div><span class="chart-chip"><i></i> Daily sales</span></div>
+              <div class="chart-summary"><strong id="weekTotal">0</strong><span>meals this week</span></div>
+              <div id="salesChart" class="bar-chart" aria-label="Sales during the last seven days"></div>
+            </article>
+            <article class="panel upcoming-panel"><div class="panel-heading"><div><h2>Coming up</h2><p>Keep an eye on campus dates</p></div><button class="text-button" data-go="events">View all <span>→</span></button></div><div id="dashboardEvents" class="event-preview-list"></div></article>
+          </div>
+          <article class="panel recent-panel"><div class="panel-heading"><div><h2>Recent sales</h2><p>Your latest recorded meal counts</p></div><button class="text-button" data-go="sales">View sales <span>→</span></button></div><div class="table-wrap"><table><thead><tr><th>MENU ITEM</th><th>DATE</th><th>MEALS SOLD</th><th>DAY TYPE</th></tr></thead><tbody id="recentSales"></tbody></table></div></article>
+        </section>
+
+        <section class="page" id="page-menu">
+          <div class="page-heading"><div><div class="eyebrow">YOUR CANTEEN</div><h1>Menu management<span class="heading-dot">.</span></h1><p>Keep your food list up to date and ready for forecasting.</p></div></div>
+          <div class="content-grid">
+            <article class="panel form-panel"><div class="panel-heading"><div><h2>Add a menu item</h2><p>It'll be available in sales and forecasts.</p></div><span class="form-icon">＋</span></div><form id="menuForm" class="stack-form"><label for="menuName">Food item name</label><input id="menuName" name="name" placeholder="e.g. Masala dosa" maxlength="60" required><button class="button button-primary" type="submit">Add to menu <span>→</span></button></form></article>
+            <article class="panel note-panel"><div class="note-badge">✳ A good menu starts here</div><h2>One list.<br>Smarter decisions.</h2><p>Your menu items power every daily sales entry, forecast and evaluation report.</p><div class="note-stat"><strong id="menuTotal">0</strong><span>items on your menu</span></div></article>
+          </div>
+          <article class="panel"><div class="panel-heading"><div><h2>Your menu</h2><p id="menuDescription">Manage the items served at your canteen.</p></div><span class="count-pill" id="menuPill">0 items</span></div><div id="menuList" class="menu-grid"></div></article>
+        </section>
+
+        <section class="page" id="page-sales">
+          <div class="page-heading"><div><div class="eyebrow">DAILY OPERATIONS</div><h1>Daily sales entry<span class="heading-dot">.</span></h1><p>Record what went out of the kitchen. Your history powers forecasts.</p></div></div>
+          <div class="content-grid sales-entry-grid">
+            <article class="panel form-panel"><div class="panel-heading"><div><h2>Log meal sales</h2><p>Add or update an item's total for a day.</p></div><span class="form-icon">↗</span></div><form id="salesForm" class="stack-form"><label for="salesItem">Menu item</label><select id="salesItem" name="itemId" required></select><div class="form-row"><div><label for="salesDate">Sale date</label><input id="salesDate" name="date" type="date" required></div><div><label for="salesQuantity">Meals sold</label><input id="salesQuantity" name="quantity" type="number" min="0" placeholder="e.g. 84" required></div></div><label class="check-row"><input name="specialEvent" type="checkbox"><span>Sales were during a special event</span></label><button class="button button-primary" type="submit">Save sales entry <span>→</span></button></form></article>
+            <article class="panel insight-panel"><div class="insight-icon">⌁</div><span class="eyebrow">YOUR SALES HISTORY</span><h2>Every plate tells you something.</h2><p>Forecasts use the average of the most recent sales records before your chosen date.</p><div class="insight-metric"><strong id="salesRecordCount">0</strong><span>daily item records saved</span></div></article>
+          </div>
+          <article class="panel"><div class="panel-heading"><div><h2>Sales history</h2><p>All recorded daily totals, newest first.</p></div><span class="count-pill" id="salesPill">0 records</span></div><div class="table-wrap"><table><thead><tr><th>MENU ITEM</th><th>DATE</th><th>DAY</th><th>MEALS SOLD</th><th>DAY TYPE</th></tr></thead><tbody id="salesTable"></tbody></table></div></article>
+        </section>
+
+        <section class="page" id="page-events">
+          <div class="page-heading"><div><div class="eyebrow">CAMPUS CALENDAR</div><h1>Event planner<span class="heading-dot">.</span></h1><p>Plan ahead for events that can shift the canteen's meal demand.</p></div></div>
+          <div class="content-grid">
+            <article class="panel form-panel"><div class="panel-heading"><div><h2>Add a college event</h2><p>Events on a forecast date receive a small planning uplift.</p></div><span class="form-icon">▣</span></div><form id="eventForm" class="stack-form"><label for="eventName">Event name</label><input id="eventName" name="name" placeholder="e.g. College cultural fest" maxlength="80" required><label for="eventDate">Event date</label><input id="eventDate" name="date" type="date" required><label for="eventDetails">Notes <span class="optional">(optional)</span></label><textarea id="eventDetails" name="details" rows="3" placeholder="Anything the kitchen team should know?"></textarea><button class="button button-primary" type="submit">Add to calendar <span>→</span></button></form></article>
+            <article class="panel note-panel event-note"><div class="note-badge">✳ Make every day count</div><h2>Know what's<br>around the corner.</h2><p>Use the event calendar alongside sales history to prepare confidently for busy campus days.</p><div class="event-tip"><span>↗</span><div><strong>Forecast tip</strong><small>Dates with a scheduled event get a +10% illustrative uplift.</small></div></div></article>
+          </div>
+          <article class="panel"><div class="panel-heading"><div><h2>College calendar</h2><p>Your upcoming and past canteen events.</p></div><span class="count-pill" id="eventsPill">0 events</span></div><div id="eventList" class="event-list"></div></article>
+        </section>
+
+        <section class="page" id="page-forecast">
+          <div class="page-heading"><div><div class="eyebrow">PLAN WITH CONFIDENCE</div><h1>Demand forecast<span class="heading-dot">.</span></h1><p>Estimate meal demand with a simple average of previous sales.</p></div></div>
+          <div class="forecast-banner"><span class="forecast-spark">✳</span><div><strong>Simple, transparent forecasting.</strong><p>We average the most recent sales records before your selected date. Scheduled event days receive an illustrative +10% uplift.</p></div></div>
+          <div class="content-grid forecast-grid">
+            <article class="panel form-panel"><div class="panel-heading"><div><h2>Build a forecast</h2><p>Choose a dish, date and how much history to use.</p></div><span class="form-icon">⌁</span></div><form id="forecastForm" class="stack-form"><label for="forecastItem">Menu item</label><select id="forecastItem" name="itemId" required></select><div class="form-row"><div><label for="forecastDate">Forecast date</label><input id="forecastDate" name="date" type="date" required></div><div><label for="forecastWindow">Recent records</label><input id="forecastWindow" name="window" type="number" min="1" max="365" value="7" required></div></div><button class="button button-primary" type="submit">Calculate forecast <span>→</span></button></form></article>
+            <article class="panel forecast-result" id="forecastResult"><div class="result-empty"><span class="empty-icon">⌁</span><h2>Your next forecast</h2><p>Choose a menu item and a date to see its predicted meal demand.</p><div class="result-hint">Uses your most recent sales records</div></div></article>
+          </div>
+          <article class="panel"><div class="panel-heading"><div><h2>Saved forecasts</h2><p>Forecasts are kept here for evaluation when actual sales arrive.</p></div><span class="count-pill" id="forecastsPill">0 forecasts</span></div><div class="table-wrap"><table><thead><tr><th>MENU ITEM</th><th>FORECAST DATE</th><th>BASELINE AVG.</th><th>PREDICTED</th><th>EVENT</th><th>STATUS</th></tr></thead><tbody id="forecastsTable"></tbody></table></div></article>
+        </section>
+
+        <section class="page" id="page-reports">
+          <div class="page-heading"><div><div class="eyebrow">LEARN & IMPROVE</div><h1>Evaluation & reports<span class="heading-dot">.</span></h1><p>Compare your forecast with actual meals sold to understand accuracy.</p></div></div>
+          <div class="stat-grid report-stats">
+            <article class="stat-card"><div class="stat-top"><span>EVALUATED FORECASTS</span><span class="stat-icon mint">✓</span></div><div class="stat-value" id="evaluatedCount">0</div><div class="stat-foot"><span>With actual sales</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span>AVERAGE ABS. ERROR</span><span class="stat-icon lavender">↕</span></div><div class="stat-value" id="averageError">—</div><div class="stat-foot"><span>Meals from actual</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span>AVERAGE ACCURACY</span><span class="stat-icon peach">◎</span></div><div class="stat-value" id="averageAccuracy">—</div><div class="stat-foot"><span>Evaluated forecasts</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span>AWAITING ACTUALS</span><span class="stat-icon blue">◷</span></div><div class="stat-value" id="pendingCount">0</div><div class="stat-foot"><span>Forecasts to evaluate</span></div></article>
+          </div>
+          <div class="content-grid report-entry-grid">
+            <article class="panel form-panel"><div class="panel-heading"><div><h2>Record actual sales</h2><p>Close the loop on a forecast after the day is done.</p></div><span class="form-icon">✓</span></div><form id="actualForm" class="stack-form"><label for="actualForecast">Forecast to evaluate</label><select id="actualForecast" name="forecast" required></select><label for="actualQuantity">Actual meals sold</label><input id="actualQuantity" name="quantity" type="number" min="0" placeholder="e.g. 78" required><button class="button button-primary" type="submit">Save actual sales <span>→</span></button></form></article>
+            <article class="panel insight-panel report-insight"><div class="insight-icon">◎</div><span class="eyebrow">KEEP GETTING BETTER</span><h2>A forecast is a starting point.</h2><p>Compare predictions to actuals, then use fresh daily sales to make the next estimate even more useful.</p><div class="accuracy-legend"><span><i class="legend-forecast"></i> Predicted</span><span><i class="legend-actual"></i> Actual</span></div></article>
+          </div>
+          <article class="panel"><div class="panel-heading"><div><h2>Forecast vs. actual</h2><p>See each prediction alongside real demand.</p></div><span class="count-pill" id="reportsPill">0 reports</span></div><div class="table-wrap"><table><thead><tr><th>MENU ITEM</th><th>DATE</th><th>PREDICTED</th><th>ACTUAL</th><th>ABS. ERROR</th><th>ACCURACY</th></tr></thead><tbody id="reportsTable"></tbody></table></div></article>
+        </section>
+        <footer class="footer"><span>canteenly <b>·</b> A simple planning tool for campus kitchens</span><span>Built for better meal days <span class="footer-heart">✳</span></span></footer>
+      </div>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
